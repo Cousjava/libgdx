@@ -16,8 +16,6 @@
 
 package com.badlogic.gdx.backends.lwjgl3;
 
-import java.awt.Toolkit;
-
 import org.lwjgl.glfw.GLFW;
 
 import com.badlogic.gdx.Gdx;
