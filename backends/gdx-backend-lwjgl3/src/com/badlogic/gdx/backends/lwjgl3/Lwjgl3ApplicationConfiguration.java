@@ -100,6 +100,7 @@ public class Lwjgl3ApplicationConfiguration extends Lwjgl3WindowConfiguration {
 	/**
 	 * @param visibility whether the window will be visible on creation. (default true)
 	 */
+        @Override
 	public void setInitialVisible(boolean visibility) {
 		this.initialVisible = visibility;
 	}
@@ -138,9 +139,8 @@ public class Lwjgl3ApplicationConfiguration extends Lwjgl3WindowConfiguration {
 	 * and minor version 2 will ensure that all OpenGL ES 3.0 features are
 	 * supported. Note however that Mac OS X does only support 3.2.
 	 * 
-	 * @see <a href=
-	 *      "http://legacy.lwjgl.org/javadoc/org/lwjgl/opengl/ContextAttribs.html">
-	 *      LWJGL OSX ContextAttribs note
+	 * @see <a href="http://legacy.lwjgl.org/javadoc/org/lwjgl/opengl/ContextAttribs.html">
+	 *      LWJGL OSX ContextAttribs note</a>
 	 * 
 	 * @param useGL30
 	 *            whether to use OpenGL ES 3.0

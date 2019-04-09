@@ -145,6 +145,7 @@ public class OggInputStream extends InputStream {
 	}
 
 	/** @see java.io.InputStream#available() */
+        @Override
 	public int available () {
 		return endOfStream ? 0 : 1;
 	}
@@ -429,6 +430,7 @@ public class OggInputStream extends InputStream {
 		endOfStream = true;
 	}
 
+        @Override
 	public int read () {
 		if (readIndex >= pcmBuffer.position()) {
 			pcmBuffer.clear();
@@ -452,6 +454,7 @@ public class OggInputStream extends InputStream {
 		return endOfStream && (readIndex >= pcmBuffer.position());
 	}
 
+        @Override
 	public int read (byte[] b, int off, int len) {
 		for (int i = 0; i < len; i++) {
 			int value = read();
@@ -469,10 +472,12 @@ public class OggInputStream extends InputStream {
 		return len;
 	}
 
+        @Override
 	public int read (byte[] b) {
 		return read(b, 0, b.length);
 	}
 
+        @Override
 	public void close () {
 		StreamUtils.closeQuietly(input);
 	}

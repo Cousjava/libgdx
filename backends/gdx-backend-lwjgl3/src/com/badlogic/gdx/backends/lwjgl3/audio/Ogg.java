@@ -34,6 +34,7 @@ public class Ogg {
 			setup(input.getChannels(), input.getSampleRate());
 		}
 
+                @Override
 		public int read (byte[] buffer) {
 			if (input == null) {
 				input = new OggInputStream(file.read(), previousInput);
@@ -43,6 +44,7 @@ public class Ogg {
 			return input.read(buffer);
 		}
 
+                @Override
 		public void reset () {
 			StreamUtils.closeQuietly(input);
 			previousInput = null;

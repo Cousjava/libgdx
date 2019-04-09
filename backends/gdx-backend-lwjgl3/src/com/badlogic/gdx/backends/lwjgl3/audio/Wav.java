@@ -35,6 +35,7 @@ public class Wav {
 			setup(input.channels, input.sampleRate);
 		}
 
+                @Override
 		public int read (byte[] buffer) {
 			if (input == null) {
 				input = new WavInputStream(file);
@@ -47,6 +48,7 @@ public class Wav {
 			}
 		}
 
+                @Override
 		public void reset () {
 			StreamUtils.closeQuietly(input);
 			input = null;
@@ -131,6 +133,7 @@ public class Wav {
 			}
 		}
 
+                @Override
 		public int read (byte[] buffer) throws IOException {
 			if (dataRemaining == 0) return -1;
 			int offset = 0;

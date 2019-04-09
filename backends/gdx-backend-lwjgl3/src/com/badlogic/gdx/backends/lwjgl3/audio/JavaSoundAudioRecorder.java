@@ -41,6 +41,7 @@ public class JavaSoundAudioRecorder implements AudioRecorder {
 		}
 	}
 
+        @Override
 	public void read (short[] samples, int offset, int numSamples) {
 		if (buffer.length < numSamples * 2) buffer = new byte[numSamples * 2];
 
@@ -53,6 +54,7 @@ public class JavaSoundAudioRecorder implements AudioRecorder {
 			samples[offset + j] = (short)((buffer[i + 1] << 8) | (buffer[i] & 0xff));
 	}
 
+        @Override
 	public void dispose () {
 		line.close();
 	}

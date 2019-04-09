@@ -30,7 +30,7 @@ import static org.lwjgl.openal.AL10.*;
 
 /** @author Nathan Sweet */
 public class OpenALAudioDevice implements AudioDevice {
-	static private final int bytesPerSample = 2;
+	private static final int bytesPerSample = 2;
 
 	private final OpenALAudio audio;
 	private final int channels;
@@ -56,6 +56,7 @@ public class OpenALAudioDevice implements AudioDevice {
 		tempBuffer = BufferUtils.createByteBuffer(bufferSize);
 	}
 
+        @Override
 	public void writeSamples (short[] samples, int offset, int numSamples) {
 		if (bytes == null || bytes.length < numSamples * 2) bytes = new byte[numSamples * 2];
 		int end = Math.min(offset + numSamples, samples.length);
@@ -67,6 +68,7 @@ public class OpenALAudioDevice implements AudioDevice {
 		writeSamples(bytes, 0, numSamples * 2);
 	}
 
+        @Override
 	public void writeSamples (float[] samples, int offset, int numSamples) {
 		if (bytes == null || bytes.length < numSamples * 2) bytes = new byte[numSamples * 2];
 		int end = Math.min(offset + numSamples, samples.length);
@@ -172,6 +174,7 @@ public class OpenALAudioDevice implements AudioDevice {
 		return isPlaying;
 	}
 
+        @Override
 	public void setVolume (float volume) {
 		this.volume = volume;
 		if (sourceID != -1) alSourcef(sourceID, AL_GAIN, volume);
@@ -194,6 +197,7 @@ public class OpenALAudioDevice implements AudioDevice {
 		return sampleRate;
 	}
 
+        @Override
 	public void dispose () {
 		if (buffers == null) return;
 		if (sourceID != -1) {
@@ -204,10 +208,12 @@ public class OpenALAudioDevice implements AudioDevice {
 		buffers = null;
 	}
 
+        @Override
 	public boolean isMono () {
 		return channels == 1;
 	}
 
+        @Override
 	public int getLatency () {
 		return (int)(secondsPerBuffer * bufferCount * 1000);
 	}

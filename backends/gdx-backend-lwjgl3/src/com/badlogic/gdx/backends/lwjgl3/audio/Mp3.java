@@ -54,6 +54,7 @@ public class Mp3 {
 			}
 		}
 
+                @Override
 		public int read (byte[] buffer) {
 			try {
 				boolean setup = bitstream == null;
@@ -92,6 +93,7 @@ public class Mp3 {
 			}
 		}
 
+                @Override
 		public void reset () {
 			if (bitstream == null) return;
 			try {

@@ -107,21 +107,30 @@ public class Lwjgl3Cursor implements Cursor {
 		Long glfwCursor = systemCursors.get(systemCursor);
 		if (glfwCursor == null) {
 			long handle = 0;
-			if (systemCursor == SystemCursor.Arrow) {
-				handle = GLFW.glfwCreateStandardCursor(GLFW.GLFW_ARROW_CURSOR);
-			} else if (systemCursor == SystemCursor.Crosshair) {
-				handle = GLFW.glfwCreateStandardCursor(GLFW.GLFW_CROSSHAIR_CURSOR);
-			} else if (systemCursor == SystemCursor.Hand) {
-				handle = GLFW.glfwCreateStandardCursor(GLFW.GLFW_HAND_CURSOR);
-			} else if (systemCursor == SystemCursor.HorizontalResize) {
-				handle = GLFW.glfwCreateStandardCursor(GLFW.GLFW_HRESIZE_CURSOR);
-			} else if (systemCursor == SystemCursor.VerticalResize) {
-				handle = GLFW.glfwCreateStandardCursor(GLFW.GLFW_VRESIZE_CURSOR);
-			} else if (systemCursor == SystemCursor.Ibeam) {
- 				handle = GLFW.glfwCreateStandardCursor(GLFW.GLFW_IBEAM_CURSOR);
-  			} else {
-				throw new GdxRuntimeException("Unknown system cursor " + systemCursor);
-			}
+			if (null == systemCursor) {
+                            throw new GdxRuntimeException("Unknown system cursor " + systemCursor);
+                        } else switch (systemCursor) {
+                        case Arrow:
+                            handle = GLFW.glfwCreateStandardCursor(GLFW.GLFW_ARROW_CURSOR);
+                            break;
+                        case Crosshair:
+                            handle = GLFW.glfwCreateStandardCursor(GLFW.GLFW_CROSSHAIR_CURSOR);
+                            break;
+                        case Hand:
+                            handle = GLFW.glfwCreateStandardCursor(GLFW.GLFW_HAND_CURSOR);
+                            break;
+                        case HorizontalResize:
+                            handle = GLFW.glfwCreateStandardCursor(GLFW.GLFW_HRESIZE_CURSOR);
+                            break;
+                        case VerticalResize:
+                            handle = GLFW.glfwCreateStandardCursor(GLFW.GLFW_VRESIZE_CURSOR);
+                            break;
+                        case Ibeam:
+                            handle = GLFW.glfwCreateStandardCursor(GLFW.GLFW_IBEAM_CURSOR);
+                            break;
+                        default:
+                            throw new GdxRuntimeException("Unknown system cursor " + systemCursor);
+                    }
 
 			if (handle == 0) {
 				return;

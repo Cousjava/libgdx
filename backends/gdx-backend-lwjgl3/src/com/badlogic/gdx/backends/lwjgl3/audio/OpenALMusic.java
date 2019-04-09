@@ -25,7 +25,6 @@ import org.lwjgl.openal.AL11;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.FloatArray;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
@@ -68,6 +67,7 @@ public abstract class OpenALMusic implements Music {
 		maxSecondsPerBuffer = (float)(bufferSize - bufferOverhead) / (bytesPerSample * channels * sampleRate);
 	}
 
+        @Override
 	public void play () {
 		if (audio.noDevice) return;
 		if (sourceID == -1) {
@@ -80,8 +80,9 @@ public abstract class OpenALMusic implements Music {
 				buffers = BufferUtils.createIntBuffer(bufferCount);
 				alGenBuffers(buffers);
 				int errorCode = alGetError();
-				if (errorCode != AL_NO_ERROR)
+				if (errorCode != AL_NO_ERROR) {
 					throw new GdxRuntimeException("Unable to allocate audio buffers. AL Error: " + errorCode);
+                                }
 			}
 
 			alSourcei(sourceID, AL_DIRECT_CHANNELS_SOFT, AL_TRUE);
@@ -108,6 +109,7 @@ public abstract class OpenALMusic implements Music {
 		}
 	}
 
+        @Override
 	public void stop () {
 		if (audio.noDevice) return;
 		if (sourceID == -1) return;
@@ -120,36 +122,43 @@ public abstract class OpenALMusic implements Music {
 		isPlaying = false;
 	}
 
+        @Override
 	public void pause () {
 		if (audio.noDevice) return;
 		if (sourceID != -1) alSourcePause(sourceID);
 		isPlaying = false;
 	}
 
+        @Override
 	public boolean isPlaying () {
 		if (audio.noDevice) return false;
 		if (sourceID == -1) return false;
 		return isPlaying;
 	}
 
+        @Override
 	public void setLooping (boolean isLooping) {
 		this.isLooping = isLooping;
 	}
 
+        @Override
 	public boolean isLooping () {
 		return isLooping;
 	}
 
+        @Override
 	public void setVolume (float volume) {
 		this.volume = volume;
 		if (audio.noDevice) return;
 		if (sourceID != -1) alSourcef(sourceID, AL_GAIN, volume);
 	}
 
+        @Override
 	public float getVolume () {
 		return this.volume;
 	}
 
+        @Override
 	public void setPan (float pan, float volume) {
 		this.volume = volume;
 		this.pan = pan;
@@ -160,6 +169,7 @@ public abstract class OpenALMusic implements Music {
 		alSourcef(sourceID, AL_GAIN, volume);
 	}
 
+        @Override
 	public void setPosition (float position) {
 		if (audio.noDevice) return;
 		if (sourceID == -1) return;
@@ -198,6 +208,7 @@ public abstract class OpenALMusic implements Music {
 		}
 	}
 
+        @Override
 	public float getPosition () {
 		if (audio.noDevice) return 0;
 		if (sourceID == -1) return 0;
@@ -272,6 +283,7 @@ public abstract class OpenALMusic implements Music {
 		return true;
 	}
 
+        @Override
 	public void dispose () {
 		stop();
 		if (audio.noDevice) return;
@@ -281,6 +293,7 @@ public abstract class OpenALMusic implements Music {
 		onCompletionListener = null;
 	}
 
+        @Override
 	public void setOnCompletionListener (OnCompletionListener listener) {
 		onCompletionListener = listener;
 	}

@@ -49,10 +49,12 @@ public class OpenALSound implements Sound {
 		}
 	}
 
+        @Override
 	public long play () {
 		return play(1);
 	}
 
+        @Override
 	public long play (float volume) {
 		if (audio.noDevice) return 0;
 		int sourceID = audio.obtainSource(false);
@@ -71,6 +73,7 @@ public class OpenALSound implements Sound {
 		return soundId;
 	}
 
+        @Override
 	public long loop () {
 		return loop(1);
 	}
@@ -88,11 +91,13 @@ public class OpenALSound implements Sound {
 		return soundId;
 	}
 
+        @Override
 	public void stop () {
 		if (audio.noDevice) return;
 		audio.stopSourcesWithBuffer(bufferID);
 	}
 
+        @Override
 	public void dispose () {
 		if (audio.noDevice) return;
 		if (bufferID == -1) return;

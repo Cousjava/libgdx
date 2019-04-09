@@ -33,16 +33,19 @@ public final class Lwjgl3FileHandle extends FileHandle {
 		super(file, type);
 	}
 
+        @Override
 	public FileHandle child (String name) {
 		if (file.getPath().length() == 0) return new Lwjgl3FileHandle(new File(name), type);
 		return new Lwjgl3FileHandle(new File(file, name), type);
 	}
 
+        @Override
 	public FileHandle sibling (String name) {
 		if (file.getPath().length() == 0) throw new GdxRuntimeException("Cannot get the sibling of the root.");
 		return new Lwjgl3FileHandle(new File(file.getParent(), name), type);
 	}
 
+        @Override
 	public FileHandle parent () {
 		File parent = file.getParentFile();
 		if (parent == null) {
@@ -54,6 +57,7 @@ public final class Lwjgl3FileHandle extends FileHandle {
 		return new Lwjgl3FileHandle(parent, type);
 	}
 
+        @Override
 	public File file () {
 		if (type == FileType.External) return new File(Lwjgl3Files.externalPath, file.getPath());
 		if (type == FileType.Local) return new File(Lwjgl3Files.localPath, file.getPath());

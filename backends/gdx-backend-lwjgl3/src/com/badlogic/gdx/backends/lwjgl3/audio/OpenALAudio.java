@@ -142,6 +142,7 @@ public class OpenALAudio implements Audio {
 		extensionToMusicClass.put(extension, musicClass);
 	}
 
+        @Override
 	public OpenALSound newSound (FileHandle file) {
 		if (file == null) throw new IllegalArgumentException("file cannot be null.");
 		Class<? extends OpenALSound> soundClass = extensionToSoundClass.get(file.extension().toLowerCase());
@@ -153,6 +154,7 @@ public class OpenALAudio implements Audio {
 		}
 	}
 
+        @Override
 	public OpenALMusic newMusic (FileHandle file) {
 		if (file == null) throw new IllegalArgumentException("file cannot be null.");
 		Class<? extends OpenALMusic> musicClass = extensionToMusicClass.get(file.extension().toLowerCase());
@@ -327,6 +329,7 @@ public class OpenALAudio implements Audio {
 		alcCloseDevice(device);			
 	}
 
+        @Override
 	public AudioDevice newAudioDevice (int sampleRate, final boolean isMono) {
 		if (noDevice) return new AudioDevice() {
 			@Override
@@ -358,6 +361,7 @@ public class OpenALAudio implements Audio {
 		return new OpenALAudioDevice(this, sampleRate, isMono, deviceBufferSize, deviceBufferCount);
 	}
 
+        @Override
 	public AudioRecorder newAudioRecorder (int samplingRate, boolean isMono) {
 		if (noDevice) return new AudioRecorder() {
 			@Override
