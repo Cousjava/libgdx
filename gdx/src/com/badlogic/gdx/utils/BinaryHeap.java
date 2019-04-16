@@ -181,6 +181,7 @@ public class BinaryHeap<T extends BinaryHeap.Node> {
 		return true;
 	}
 
+        @Override
 	public int hashCode () {
 		int h = 1;
 		for (int i = 0, n = size; i < n; i++)
@@ -188,6 +189,7 @@ public class BinaryHeap<T extends BinaryHeap.Node> {
 		return h;
 	}
 
+        @Override
 	public String toString () {
 		if (size == 0) return "[]";
 		Node[] nodes = this.nodes;
@@ -215,6 +217,7 @@ public class BinaryHeap<T extends BinaryHeap.Node> {
 			return value;
 		}
 
+                @Override
 		public String toString () {
 			return Float.toString(value);
 		}

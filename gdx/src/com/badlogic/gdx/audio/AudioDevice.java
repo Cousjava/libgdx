@@ -46,6 +46,7 @@ public interface AudioDevice extends Disposable {
 	public int getLatency ();
 
 	/** Frees all resources associated with this AudioDevice. Needs to be called when the device is no longer needed. */
+        @Override
 	public void dispose ();
 
 	/** Sets the volume in the range [0,1]. */

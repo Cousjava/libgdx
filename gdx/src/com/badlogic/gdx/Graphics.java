@@ -73,6 +73,7 @@ public interface Graphics {
 			this.bitsPerPixel = bitsPerPixel;
 		}
 
+                @Override
 		public String toString () {
 			return width + "x" + height + ", bpp: " + bitsPerPixel + ", hz: " + refreshRate;
 		}
@@ -116,6 +117,7 @@ public interface Graphics {
 			this.coverageSampling = coverageSampling;
 		}
 
+                @Override
 		public String toString () {
 			return "r: " + r + ", g: " + g + ", b: " + b + ", a: " + a + ", depth: " + depth + ", stencil: " + stencil
 				+ ", num samples: " + samples + ", coverage sampling: " + coverageSampling;

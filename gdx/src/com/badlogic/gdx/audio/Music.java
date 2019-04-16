@@ -85,6 +85,7 @@ public interface Music extends Disposable {
 	public float getPosition ();
 
 	/** Needs to be called when the Music is no longer needed. */
+        @Override
 	public void dispose ();
 
 	/** Register a callback to be invoked when the end of a music stream has been reached during playback.

@@ -33,5 +33,6 @@ public interface AudioRecorder extends Disposable {
 	public void read (short[] samples, int offset, int numSamples);
 
 	/** Disposes the AudioRecorder */
+        @Override
 	public void dispose ();
 }

@@ -84,6 +84,7 @@ public interface Sound extends Disposable {
 	public void resume ();
 
 	/** Releases all the resources. */
+        @Override
 	public void dispose ();
 
 	/** Stops the sound instance with the given id as returned by {@link #play()} or {@link #play(float)}. If the sound is no longer

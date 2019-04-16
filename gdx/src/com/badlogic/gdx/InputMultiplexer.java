@@ -73,6 +73,7 @@ public class InputMultiplexer implements InputProcessor {
 		return processors;
 	}
 
+        @Override
 	public boolean keyDown (int keycode) {
 		Object[] items = processors.begin();
 		try {
@@ -84,6 +85,7 @@ public class InputMultiplexer implements InputProcessor {
 		return false;
 	}
 
+        @Override
 	public boolean keyUp (int keycode) {
 		Object[] items = processors.begin();
 		try {
@@ -95,6 +97,7 @@ public class InputMultiplexer implements InputProcessor {
 		return false;
 	}
 
+        @Override
 	public boolean keyTyped (char character) {
 		Object[] items = processors.begin();
 		try {
@@ -106,6 +109,7 @@ public class InputMultiplexer implements InputProcessor {
 		return false;
 	}
 
+        @Override
 	public boolean touchDown (int screenX, int screenY, int pointer, int button) {
 		Object[] items = processors.begin();
 		try {
@@ -117,6 +121,7 @@ public class InputMultiplexer implements InputProcessor {
 		return false;
 	}
 
+        @Override
 	public boolean touchUp (int screenX, int screenY, int pointer, int button) {
 		Object[] items = processors.begin();
 		try {
@@ -128,6 +133,7 @@ public class InputMultiplexer implements InputProcessor {
 		return false;
 	}
 
+        @Override
 	public boolean touchDragged (int screenX, int screenY, int pointer) {
 		Object[] items = processors.begin();
 		try {
@@ -139,6 +145,7 @@ public class InputMultiplexer implements InputProcessor {
 		return false;
 	}
 
+        @Override
 	public boolean mouseMoved (int screenX, int screenY) {
 		Object[] items = processors.begin();
 		try {
@@ -150,6 +157,7 @@ public class InputMultiplexer implements InputProcessor {
 		return false;
 	}
 
+        @Override
 	public boolean scrolled (int amount) {
 		Object[] items = processors.begin();
 		try {

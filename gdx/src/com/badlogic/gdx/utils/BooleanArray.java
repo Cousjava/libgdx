@@ -306,6 +306,7 @@ public class BooleanArray {
 		return array;
 	}
 
+        @Override
 	public int hashCode () {
 		if (!ordered) return super.hashCode();
 		boolean[] items = this.items;
@@ -315,6 +316,7 @@ public class BooleanArray {
 		return h;
 	}
 
+        @Override
 	public boolean equals (Object object) {
 		if (object == this) return true;
 		if (!ordered) return false;
@@ -330,6 +332,7 @@ public class BooleanArray {
 		return true;
 	}
 
+        @Override
 	public String toString () {
 		if (size == 0) return "[]";
 		boolean[] items = this.items;
