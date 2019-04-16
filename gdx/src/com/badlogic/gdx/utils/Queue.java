@@ -325,11 +325,13 @@ public class Queue<T> implements Iterable<T> {
 
 	/** Returns an iterator for the items in the queue. Remove is supported. Note that the same iterator instance is returned each
 	 * time this method is called. Use the {@link QueueIterator} constructor for nested or multithreaded iteration. */
+        @Override
 	public Iterator<T> iterator () {
 		if (iterable == null) iterable = new QueueIterable(this);
 		return iterable.iterator();
 	}
 
+        @Override
 	public String toString () {
 		if (size == 0) {
 			return "[]";
@@ -348,6 +350,7 @@ public class Queue<T> implements Iterable<T> {
 		return sb.toString();
 	}
 
+        @Override
 	public int hashCode () {
 		final int size = this.size;
 		final T[] values = this.values;
@@ -368,6 +371,7 @@ public class Queue<T> implements Iterable<T> {
 		return hash;
 	}
 
+        @Override
 	public boolean equals (Object o) {
 		if (this == o) return true;
 		if (o == null || !(o instanceof Queue)) return false;
@@ -414,23 +418,24 @@ public class Queue<T> implements Iterable<T> {
 			this.allowRemove = allowRemove;
 		}
 
+                @Override
 		public boolean hasNext () {
 			if (!valid) {
-// System.out.println(iterable.lastAcquire);
 				throw new GdxRuntimeException("#iterator() cannot be used nested.");
 			}
 			return index < queue.size;
 		}
 
+                @Override
 		public T next () {
 			if (index >= queue.size) throw new NoSuchElementException(String.valueOf(index));
 			if (!valid) {
-// System.out.println(iterable.lastAcquire);
 				throw new GdxRuntimeException("#iterator() cannot be used nested.");
 			}
 			return queue.get(index++);
 		}
 
+                @Override
 		public void remove () {
 			if (!allowRemove) throw new GdxRuntimeException("Remove not allowed.");
 			index--;
@@ -441,6 +446,7 @@ public class Queue<T> implements Iterable<T> {
 			index = 0;
 		}
 
+                @Override
 		public Iterator<T> iterator () {
 			return this;
 		}
@@ -462,14 +468,11 @@ public class Queue<T> implements Iterable<T> {
 			this.allowRemove = allowRemove;
 		}
 
+                @Override
 		public Iterator<T> iterator () {
-// lastAcquire.getBuffer().setLength(0);
-// new Throwable().printStackTrace(new java.io.PrintWriter(lastAcquire));
 			if (iterator1 == null) {
 				iterator1 = new QueueIterator(queue, allowRemove);
 				iterator2 = new QueueIterator(queue, allowRemove);
-// iterator1.iterable = this;
-// iterator2.iterable = this;
 			}
 			if (!iterator1.valid) {
 				iterator1.index = 0;

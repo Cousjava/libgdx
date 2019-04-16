@@ -351,6 +351,7 @@ public class FloatArray {
 		return array;
 	}
 
+        @Override
 	public int hashCode () {
 		if (!ordered) return super.hashCode();
 		float[] items = this.items;
@@ -360,6 +361,7 @@ public class FloatArray {
 		return h;
 	}
 
+        @Override
 	public boolean equals (Object object) {
 		if (object == this) return true;
 		if (!ordered) return false;
@@ -390,6 +392,7 @@ public class FloatArray {
 		return true;
 	}
 
+        @Override
 	public String toString () {
 		if (size == 0) return "[]";
 		float[] items = this.items;

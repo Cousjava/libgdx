@@ -358,6 +358,7 @@ public class ShortArray {
 		return array;
 	}
 
+        @Override
 	public int hashCode () {
 		if (!ordered) return super.hashCode();
 		short[] items = this.items;
@@ -367,6 +368,7 @@ public class ShortArray {
 		return h;
 	}
 
+        @Override
 	public boolean equals (Object object) {
 		if (object == this) return true;
 		if (!ordered) return false;
@@ -382,6 +384,7 @@ public class ShortArray {
 		return true;
 	}
 
+        @Override
 	public String toString () {
 		if (size == 0) return "[]";
 		short[] items = this.items;

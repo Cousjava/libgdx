@@ -533,6 +533,7 @@ public class XmlReader {
 			return parent;
 		}
 
+                @Override
 		public String toString () {
 			return toString("");
 		}

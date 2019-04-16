@@ -119,17 +119,20 @@ public class XmlWriter extends Writer {
 	}
 
 	/** Calls {@link #pop()} for each remaining open element, if any, and closes the stream. */
+        @Override
 	public void close () throws IOException {
 		while (stack.size != 0)
 			pop();
 		writer.close();
 	}
 
+        @Override
 	public void write (char[] cbuf, int off, int len) throws IOException {
 		startElementContent();
 		writer.write(cbuf, off, len);
 	}
 
+        @Override
 	public void flush () throws IOException {
 		writer.flush();
 	}

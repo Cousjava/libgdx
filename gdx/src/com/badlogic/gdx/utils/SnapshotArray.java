@@ -105,76 +105,91 @@ public class SnapshotArray<T> extends Array<T> {
 			resize(items.length);
 	}
 
+        @Override
 	public void set (int index, T value) {
 		modified();
 		super.set(index, value);
 	}
 
+        @Override
 	public void insert (int index, T value) {
 		modified();
 		super.insert(index, value);
 	}
 
+        @Override
 	public void swap (int first, int second) {
 		modified();
 		super.swap(first, second);
 	}
 
+        @Override
 	public boolean removeValue (T value, boolean identity) {
 		modified();
 		return super.removeValue(value, identity);
 	}
 
+        @Override
 	public T removeIndex (int index) {
 		modified();
 		return super.removeIndex(index);
 	}
 
+        @Override
 	public void removeRange (int start, int end) {
 		modified();
 		super.removeRange(start, end);
 	}
 
+        @Override
 	public boolean removeAll (Array<? extends T> array, boolean identity) {
 		modified();
 		return super.removeAll(array, identity);
 	}
 
+        @Override
 	public T pop () {
 		modified();
 		return super.pop();
 	}
 
+        @Override
 	public void clear () {
 		modified();
 		super.clear();
 	}
 
+        @Override
 	public void sort () {
 		modified();
 		super.sort();
 	}
 
+        @Override
 	public void sort (Comparator<? super T> comparator) {
 		modified();
 		super.sort(comparator);
 	}
 
+        @Override
 	public void reverse () {
 		modified();
 		super.reverse();
 	}
 
+        @Override
 	public void shuffle () {
 		modified();
 		super.shuffle();
 	}
 
+        @Override
 	public void truncate (int newSize) {
 		modified();
 		super.truncate(newSize);
 	}
 
+        @Override
 	public T[] setSize (int newSize) {
 		modified();
 		return super.setSize(newSize);

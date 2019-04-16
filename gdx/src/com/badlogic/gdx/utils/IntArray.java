@@ -351,6 +351,7 @@ public class IntArray {
 		return array;
 	}
 
+        @Override
 	public int hashCode () {
 		if (!ordered) return super.hashCode();
 		int[] items = this.items;
@@ -360,6 +361,7 @@ public class IntArray {
 		return h;
 	}
 
+        @Override
 	public boolean equals (Object object) {
 		if (object == this) return true;
 		if (!ordered) return false;
@@ -375,6 +377,7 @@ public class IntArray {
 		return true;
 	}
 
+        @Override
 	public String toString () {
 		if (size == 0) return "[]";
 		int[] items = this.items;

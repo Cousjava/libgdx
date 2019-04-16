@@ -496,6 +496,7 @@ public class ObjectFloatMap<K> implements Iterable<ObjectFloatMap.Entry<K>> {
 		return (h ^ h >>> hashShift) & mask;
 	}
 
+        @Override
 	public int hashCode () {
 		int h = 0;
 		K[] keyTable = this.keyTable;
@@ -512,6 +513,7 @@ public class ObjectFloatMap<K> implements Iterable<ObjectFloatMap.Entry<K>> {
 		return h;
 	}
 
+        @Override
 	public boolean equals (Object obj) {
 		if (obj == this) return true;
 		if (!(obj instanceof ObjectFloatMap)) return false;
@@ -531,6 +533,7 @@ public class ObjectFloatMap<K> implements Iterable<ObjectFloatMap.Entry<K>> {
 		return true;
 	}
 
+        @Override
 	public String toString () {
 		if (size == 0) return "{}";
 		StringBuilder buffer = new StringBuilder(32);
@@ -558,6 +561,7 @@ public class ObjectFloatMap<K> implements Iterable<ObjectFloatMap.Entry<K>> {
 		return buffer.toString();
 	}
 
+        @Override
 	public Entries<K> iterator () {
 		return entries();
 	}
@@ -623,6 +627,7 @@ public class ObjectFloatMap<K> implements Iterable<ObjectFloatMap.Entry<K>> {
 		public K key;
 		public float value;
 
+                @Override
 		public String toString () {
 			return key + "=" + value;
 		}
@@ -679,6 +684,7 @@ public class ObjectFloatMap<K> implements Iterable<ObjectFloatMap.Entry<K>> {
 		}
 
 		/** Note the same entry instance is returned each time this method is called. */
+                @Override
 		public Entry<K> next () {
 			if (!hasNext) throw new NoSuchElementException();
 			if (!valid) throw new GdxRuntimeException("#iterator() cannot be used nested.");
@@ -690,15 +696,18 @@ public class ObjectFloatMap<K> implements Iterable<ObjectFloatMap.Entry<K>> {
 			return entry;
 		}
 
+                @Override
 		public boolean hasNext () {
 			if (!valid) throw new GdxRuntimeException("#iterator() cannot be used nested.");
 			return hasNext;
 		}
 
+                @Override
 		public Entries<K> iterator () {
 			return this;
 		}
 
+                @Override
 		public void remove () {
 			super.remove();
 		}
@@ -737,11 +746,13 @@ public class ObjectFloatMap<K> implements Iterable<ObjectFloatMap.Entry<K>> {
 			super((ObjectFloatMap<K>)map);
 		}
 
+                @Override
 		public boolean hasNext () {
 			if (!valid) throw new GdxRuntimeException("#iterator() cannot be used nested.");
 			return hasNext;
 		}
 
+                @Override
 		public K next () {
 			if (!hasNext) throw new NoSuchElementException();
 			if (!valid) throw new GdxRuntimeException("#iterator() cannot be used nested.");
@@ -751,6 +762,7 @@ public class ObjectFloatMap<K> implements Iterable<ObjectFloatMap.Entry<K>> {
 			return key;
 		}
 
+                @Override
 		public Keys<K> iterator () {
 			return this;
 		}
@@ -770,6 +782,7 @@ public class ObjectFloatMap<K> implements Iterable<ObjectFloatMap.Entry<K>> {
 			return array;
 		}
 
+                @Override
 		public void remove () {
 			super.remove();
 		}

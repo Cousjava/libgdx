@@ -49,6 +49,7 @@ public class SerializationException extends RuntimeException {
 		return causedBy(cause, type);
 	}
 
+        @Override
 	public String getMessage () {
 		if (trace == null) return super.getMessage();
 		StringBuilder sb = new StringBuilder(512);

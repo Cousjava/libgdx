@@ -33,46 +33,56 @@ public class LittleEndianInputStream extends FilterInputStream implements DataIn
 		din = new DataInputStream(in);
 	}
 
+        @Override
 	public void readFully (byte[] b) throws IOException {
 		din.readFully(b);
 	}
 
+        @Override
 	public void readFully (byte[] b, int off, int len) throws IOException {
 		din.readFully(b, off, len);
 	}
 
+        @Override
 	public int skipBytes (int n) throws IOException {
 		return din.skipBytes(n);
 	}
 
+        @Override
 	public boolean readBoolean () throws IOException {
 		return din.readBoolean();
 	}
 
+        @Override
 	public byte readByte () throws IOException {
 		return din.readByte();
 	}
 
+        @Override
 	public int readUnsignedByte () throws IOException {
 		return din.readUnsignedByte();
 	}
 
+        @Override
 	public short readShort () throws IOException {
 		int low = din.read();
 		int high = din.read();
 		return (short)((high << 8) | (low & 0xff));
 	}
 
+        @Override
 	public int readUnsignedShort () throws IOException {
 		int low = din.read();
 		int high = din.read();
 		return ((high & 0xff) << 8) | (low & 0xff);
 	}
 
+        @Override
 	public char readChar () throws IOException {
 		return din.readChar();
 	}
 
+        @Override
 	public int readInt () throws IOException {
 		int[] res = new int[4];
 		for (int i = 3; i >= 0; i--)
@@ -81,6 +91,7 @@ public class LittleEndianInputStream extends FilterInputStream implements DataIn
 		return ((res[0] & 0xff) << 24) | ((res[1] & 0xff) << 16) | ((res[2] & 0xff) << 8) | (res[3] & 0xff);
 	}
 
+        @Override
 	public long readLong () throws IOException {
 		int[] res = new int[8];
 		for (int i = 7; i >= 0; i--)
@@ -91,18 +102,22 @@ public class LittleEndianInputStream extends FilterInputStream implements DataIn
 			| ((long)(res[6] & 0xff) << 8) | ((long)(res[7] & 0xff)));
 	}
 
+        @Override
 	public float readFloat () throws IOException {
 		return Float.intBitsToFloat(readInt());
 	}
 
+        @Override
 	public double readDouble () throws IOException {
 		return Double.longBitsToDouble(readLong());
 	}
 
+        @Override
 	public final String readLine () throws IOException {
 		return din.readLine();
 	}
 
+        @Override
 	public String readUTF () throws IOException {
 		return din.readUTF();
 	}

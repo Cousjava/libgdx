@@ -74,28 +74,32 @@ class TextFormatter {
 		boolean changed = false;
 		int len = pattern.length();
 		for (int i = 0; i < len; i++) {
-			char ch = pattern.charAt(i);
-			if (ch == '\'') {
-				changed = true;
-				buffer.append("''");
-			} else if (ch == '{') {
-				int j = i + 1;
-				while (j < len && pattern.charAt(j) == '{')
-					j++;
-				int escaped = (j - i) / 2;
-				if (escaped > 0) {
-					changed = true;
-					buffer.append('\'');
-					do {
-						buffer.append('{');
-					} while ((--escaped) > 0);
-					buffer.append('\'');
-				}
-				if ((j - i) % 2 != 0) buffer.append('{');
-				i = j - 1;
-			} else {
-				buffer.append(ch);
-			}
+                    char ch = pattern.charAt(i);
+                    switch (ch) {
+                        case '\'':
+                            changed = true;
+                            buffer.append("''");
+                            break;
+                        case '{':
+                            int j = i + 1;
+                            while (j < len && pattern.charAt(j) == '{')
+                                j++;
+                            int escaped = (j - i) / 2;
+                            if (escaped > 0) {
+                                changed = true;
+                                buffer.append('\'');
+                                do {
+                                    buffer.append('{');
+                                } while ((--escaped) > 0);
+                                buffer.append('\'');
+                            }
+                            if ((j - i) % 2 != 0) buffer.append('{');
+                            i = j - 1;
+                            break;
+                        default:
+                            buffer.append(ch);
+                            break;
+                    }
 		}
 		return changed ? buffer.toString() : pattern;
 	}

@@ -55,6 +55,7 @@ public class ReflectionPool<T> extends Pool<T> {
 		}
 	}
 
+        @Override
 	protected T newObject () {
 		try {
 			return (T)constructor.newInstance((Object[])null);

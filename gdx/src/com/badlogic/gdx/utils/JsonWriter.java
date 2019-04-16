@@ -133,14 +133,17 @@ public class JsonWriter extends Writer {
 		return this;
 	}
 
+        @Override
 	public void write (char[] cbuf, int off, int len) throws IOException {
 		writer.write(cbuf, off, len);
 	}
 
+        @Override
 	public void flush () throws IOException {
 		writer.flush();
 	}
 
+        @Override
 	public void close () throws IOException {
 		while (stack.size > 0)
 			pop();

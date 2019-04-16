@@ -61,6 +61,7 @@ public class JsonReader implements BaseJsonReader {
 		}
 	}
 
+        @Override
 	public JsonValue parse (InputStream input) {
 		try {
 			return parse(new InputStreamReader(input, "UTF-8"));
@@ -71,6 +72,7 @@ public class JsonReader implements BaseJsonReader {
 		}
 	}
 
+        @Override
 	public JsonValue parse (FileHandle file) {
 		try {
 			return parse(file.reader("UTF-8"));

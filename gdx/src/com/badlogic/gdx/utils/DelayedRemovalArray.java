@@ -99,6 +99,7 @@ public class DelayedRemovalArray<T> extends Array<T> {
 		remove.add(index);
 	}
 
+        @Override
 	public boolean removeValue (T value, boolean identity) {
 		if (iterating > 0) {
 			int index = indexOf(value, identity);
@@ -109,6 +110,7 @@ public class DelayedRemovalArray<T> extends Array<T> {
 		return super.removeValue(value, identity);
 	}
 
+        @Override
 	public T removeIndex (int index) {
 		if (iterating > 0) {
 			remove(index);
@@ -117,6 +119,7 @@ public class DelayedRemovalArray<T> extends Array<T> {
 		return super.removeIndex(index);
 	}
 
+        @Override
 	public void removeRange (int start, int end) {
 		if (iterating > 0) {
 			for (int i = end; i >= start; i--)
@@ -125,6 +128,7 @@ public class DelayedRemovalArray<T> extends Array<T> {
 			super.removeRange(start, end);
 	}
 
+        @Override
 	public void clear () {
 		if (iterating > 0) {
 			clear = size;
@@ -133,51 +137,61 @@ public class DelayedRemovalArray<T> extends Array<T> {
 		super.clear();
 	}
 
+        @Override
 	public void set (int index, T value) {
 		if (iterating > 0) throw new IllegalStateException("Invalid between begin/end.");
 		super.set(index, value);
 	}
 
+        @Override
 	public void insert (int index, T value) {
 		if (iterating > 0) throw new IllegalStateException("Invalid between begin/end.");
 		super.insert(index, value);
 	}
 
+        @Override
 	public void swap (int first, int second) {
 		if (iterating > 0) throw new IllegalStateException("Invalid between begin/end.");
 		super.swap(first, second);
 	}
 
+        @Override
 	public T pop () {
 		if (iterating > 0) throw new IllegalStateException("Invalid between begin/end.");
 		return super.pop();
 	}
 
+        @Override
 	public void sort () {
 		if (iterating > 0) throw new IllegalStateException("Invalid between begin/end.");
 		super.sort();
 	}
 
+        @Override
 	public void sort (Comparator<? super T> comparator) {
 		if (iterating > 0) throw new IllegalStateException("Invalid between begin/end.");
 		super.sort(comparator);
 	}
 
+        @Override
 	public void reverse () {
 		if (iterating > 0) throw new IllegalStateException("Invalid between begin/end.");
 		super.reverse();
 	}
 
+        @Override
 	public void shuffle () {
 		if (iterating > 0) throw new IllegalStateException("Invalid between begin/end.");
 		super.shuffle();
 	}
 
+        @Override
 	public void truncate (int newSize) {
 		if (iterating > 0) throw new IllegalStateException("Invalid between begin/end.");
 		super.truncate(newSize);
 	}
 
+        @Override
 	public T[] setSize (int newSize) {
 		if (iterating > 0) throw new IllegalStateException("Invalid between begin/end.");
 		return super.setSize(newSize);

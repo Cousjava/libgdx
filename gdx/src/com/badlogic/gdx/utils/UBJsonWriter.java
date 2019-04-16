@@ -558,6 +558,7 @@ public class UBJsonWriter implements Closeable {
 	}
 
 	/** Closes the underlying output stream and releases any system resources associated with the stream. */
+        @Override
 	public void close () throws IOException {
 		while (stack.size > 0)
 			pop();

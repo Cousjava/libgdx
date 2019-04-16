@@ -18,8 +18,6 @@ package com.badlogic.gdx.utils;
 
 import java.util.Iterator;
 
-import com.badlogic.gdx.utils.Array.ArrayIterator;
-
 /** Interface used to select items within an iterator against a predicate.
  * @author Xoppa */
 public interface Predicate<T> {

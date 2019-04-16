@@ -108,6 +108,7 @@ public class SortedIntList<E> implements Iterable<SortedIntList.Node<E>> {
 	 * Only one iterator can be active per list at any given time.
 	 * 
 	 * @return Iterator to traverse list */
+        @Override
 	public java.util.Iterator<Node<E>> iterator () {
 		if (iterator == null) {
 			iterator = new Iterator();
