@@ -134,6 +134,7 @@ public class Vector3 implements Serializable, Vector<Vector3> {
 	}
 
 	@Override
+        @Deprecated
 	public Vector3 cpy () {
 		return new Vector3(this);
 	}
@@ -720,4 +721,10 @@ public class Vector3 implements Serializable, Vector<Vector3> {
 		this.z = 0;
 		return this;
 	}
+        
+        @Override
+        @SuppressWarnings({"CloneDeclaresCloneNotSupported", "CloneDoesntCallSuperClone"})
+        public Vector3 clone() {
+            return new Vector3(this);
+        }
 }

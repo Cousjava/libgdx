@@ -53,6 +53,7 @@ public class Vector2 implements Serializable, Vector<Vector2> {
 		set(v);
 	}
 
+        @Deprecated
 	@Override
 	public Vector2 cpy () {
 		return new Vector2(this);
@@ -551,4 +552,11 @@ public class Vector2 implements Serializable, Vector<Vector2> {
 		this.y = 0;
 		return this;
 	}
+        
+        
+        @Override
+        @SuppressWarnings({"CloneDeclaresCloneNotSupported", "CloneDoesntCallSuperClone"})
+        public Vector2 clone() {
+            return new Vector2(this);
+        }
 }
