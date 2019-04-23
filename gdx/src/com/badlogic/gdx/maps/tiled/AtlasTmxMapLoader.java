@@ -253,15 +253,22 @@ public class AtlasTmxMapLoader extends BaseTmxMapLoader<AtlasTmxMapLoader.AtlasT
 		for (int i = 0, j = root.getChildCount(); i < j; i++) {
 			Element element = root.getChild(i);
 			String elementName = element.getName();
-			if (elementName.equals("properties")) {
-				loadProperties(map.getProperties(), element);
-			} else if (elementName.equals("tileset")) {
-				loadTileset(map, element, tmxFile, resolver);
-			} else if (elementName.equals("layer")) {
-				loadTileLayer(map, map.getLayers(), element);
-			} else if (elementName.equals("objectgroup")) {
-				loadObjectGroup(map, map.getLayers(), element);
-			}
+                    switch (elementName) {
+                        case "properties":
+                            loadProperties(map.getProperties(), element);
+                            break;
+                        case "tileset":
+                            loadTileset(map, element, tmxFile, resolver);
+                            break;
+                        case "layer":
+                            loadTileLayer(map, map.getLayers(), element);
+                            break;
+                        case "objectgroup":
+                            loadObjectGroup(map, map.getLayers(), element);
+                            break;
+                        default:
+                            break;
+                    }
 		}
 		return map;
 	}

@@ -37,7 +37,6 @@ import static com.badlogic.gdx.graphics.g2d.Batch.Y2;
 import static com.badlogic.gdx.graphics.g2d.Batch.Y3;
 import static com.badlogic.gdx.graphics.g2d.Batch.Y4;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -188,9 +187,9 @@ public abstract class BatchTiledMapRenderer implements TiledMapRenderer, Disposa
 	public void renderImageLayer (TiledMapImageLayer layer) {
 		final Color batchColor = batch.getColor();
 		final float color = Color.toFloatBits(batchColor.r,
-														  batchColor.g,
-														  batchColor.b,
-														  batchColor.a * layer.getOpacity());
+                                                        batchColor.g,
+                                                        batchColor.b,
+							batchColor.a * layer.getOpacity());
 		
 		final float[] vertices = this.vertices;
 		

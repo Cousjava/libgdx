@@ -21,13 +21,13 @@ import com.badlogic.gdx.maps.MapLayer;
 /** @brief Layer for a TiledMap */
 public class TiledMapTileLayer extends MapLayer {
 
-	private int width;
-	private int height;
+	private final int width;
+	private final int height;
 
-	private float tileWidth;
-	private float tileHeight;
+	private final float tileWidth;
+	private final float tileHeight;
 
-	private Cell[][] cells;
+	private final Cell[][] cells;
 
 	/** @return layer's width in tiles */
 	public int getWidth () {

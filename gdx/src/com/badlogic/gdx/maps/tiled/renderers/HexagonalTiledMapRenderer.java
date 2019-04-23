@@ -79,12 +79,12 @@ public class HexagonalTiledMapRenderer extends BatchTiledMapRenderer {
 
 		Integer length = map.getProperties().get("hexsidelength", Integer.class);
 		if (length != null) {
-			hexSideLength = length.intValue();
+			hexSideLength = length;
 		} else {
 			if (staggerAxisX) {
 				length = map.getProperties().get("tilewidth", Integer.class);
 				if (length != null) {
-					hexSideLength = 0.5f * length.intValue();
+					hexSideLength = 0.5f * length;
 				} else {
 					TiledMapTileLayer tmtl = (TiledMapTileLayer)map.getLayers().get(0);
 					hexSideLength = 0.5f * tmtl.getTileWidth();
@@ -92,7 +92,7 @@ public class HexagonalTiledMapRenderer extends BatchTiledMapRenderer {
 			} else {
 				length = map.getProperties().get("tileheight", Integer.class);
 				if (length != null) {
-					hexSideLength = 0.5f * length.intValue();
+					hexSideLength = 0.5f * length;
 				} else {
 					TiledMapTileLayer tmtl = (TiledMapTileLayer)map.getLayers().get(0);
 					hexSideLength = 0.5f * tmtl.getTileHeight();

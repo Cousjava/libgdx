@@ -99,16 +99,22 @@ public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>
 
 	protected void loadLayer (TiledMap map, MapLayers parentLayers, Element element, FileHandle tmxFile, ImageResolver imageResolver) {
 		String name = element.getName();
-		if (name.equals("group")) {
-			loadTileGroup(map, parentLayers, element, tmxFile, imageResolver);
-		} else if (name.equals("layer")) {
-			loadTileLayer(map, parentLayers, element);
-		} else if (name.equals("objectgroup")) {
-			loadObjectGroup(map, parentLayers, element);
-		}
-		else if (name.equals("imagelayer")) {
-			loadImageLayer(map, parentLayers, element, tmxFile, imageResolver);
-		}
+            switch (name) {
+                case "group":
+                    loadTileGroup(map, parentLayers, element, tmxFile, imageResolver);
+                    break;
+                case "layer":
+                    loadTileLayer(map, parentLayers, element);
+                    break;
+                case "objectgroup":
+                    loadObjectGroup(map, parentLayers, element);
+                    break;
+                case "imagelayer":
+                    loadImageLayer(map, parentLayers, element, tmxFile, imageResolver);
+                    break;
+                default:
+                    break;
+            }
 	}
 
 	protected void loadTileLayer (TiledMap map, MapLayers parentLayers, Element element) {
@@ -338,23 +344,24 @@ public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>
 	}
 
 	private Object castProperty (String name, String value, String type) {
-		if (type == null) {
+		if (null == type) {
 			return value;
-		} else if (type.equals("int")) {
-			return Integer.valueOf(value);
-		} else if (type.equals("float")) {
-			return Float.valueOf(value);
-		} else if (type.equals("bool")) {
-			return Boolean.valueOf(value);
-		} else if (type.equals("color")) {
-			// Tiled uses the format #AARRGGBB
-			String opaqueColor = value.substring(3);
-			String alpha = value.substring(1, 3);
-			return Color.valueOf(opaqueColor + alpha);
-		} else {
-			throw new GdxRuntimeException("Wrong type given for property " + name + ", given : " + type
-				+ ", supported : string, bool, int, float, color");
-		}
+		} else switch (type) {
+                case "int":
+                    return Integer.valueOf(value);
+                case "float":
+                    return Float.valueOf(value);
+                case "bool":
+                    return Boolean.valueOf(value);
+                case "color":
+                    // Tiled uses the format #AARRGGBB
+                    String opaqueColor = value.substring(3);
+                    String alpha = value.substring(1, 3);
+                    return Color.valueOf(opaqueColor + alpha);
+                default:
+                    throw new GdxRuntimeException("Wrong type given for property " + name + ", given : " + type
+                            + ", supported : string, bool, int, float, color");
+            }
 	}
 
 	protected Cell createTileLayerCell (boolean flipHorizontally, boolean flipVertically, boolean flipDiagonally) {
@@ -396,14 +403,18 @@ public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>
 					try {
 						String compression = data.getAttribute("compression", null);
 						byte[] bytes = Base64Coder.decode(data.getText());
-						if (compression == null)
+						if (null == compression)
 							is = new ByteArrayInputStream(bytes);
-						else if (compression.equals("gzip"))
-							is = new BufferedInputStream(new GZIPInputStream(new ByteArrayInputStream(bytes), bytes.length));
-						else if (compression.equals("zlib"))
-							is = new BufferedInputStream(new InflaterInputStream(new ByteArrayInputStream(bytes)));
-						else
-							throw new GdxRuntimeException("Unrecognised compression (" + compression + ") for TMX Layer Data");
+						else switch (compression) {
+                                                case "gzip":
+                                                    is = new BufferedInputStream(new GZIPInputStream(new ByteArrayInputStream(bytes), bytes.length));
+                                                    break;
+                                                case "zlib":
+                                                    is = new BufferedInputStream(new InflaterInputStream(new ByteArrayInputStream(bytes)));
+                                                    break;
+                                                default:
+                                                    throw new GdxRuntimeException("Unrecognised compression (" + compression + ") for TMX Layer Data");
+                                            }
 
 						byte[] temp = new byte[4];
 						for (int y = 0; y < height; y++) {

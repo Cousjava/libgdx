@@ -38,7 +38,7 @@ public class AnimatedTiledMapTile implements TiledMapTile {
 
 	private MapObjects objects;
 
-	private StaticTiledMapTile[] frameTiles;
+	private final StaticTiledMapTile[] frameTiles;
 
 	private int[] animationIntervals;
 	private int frameCount = 0;

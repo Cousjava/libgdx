@@ -17,7 +17,6 @@
 package com.badlogic.gdx.maps.tiled;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -26,7 +25,7 @@ import com.badlogic.gdx.utils.Disposable;
  * 
  * @see Map */
 public class TiledMap extends Map {
-	private TiledMapTileSets tilesets;
+	private final TiledMapTileSets tilesets;
 	private Array<? extends Disposable> ownedResources;
 
 	/** @return collection of tilesets for this map. */

@@ -47,7 +47,7 @@ public class TideMapLoader extends SynchronousAssetLoader<TiledMap, TideMapLoade
 
 	}
 
-	private XmlReader xml = new XmlReader();
+	private final XmlReader xml = new XmlReader();
 	private Element root;
 
 	public TideMapLoader () {
@@ -231,34 +231,45 @@ public class TideMapLoader extends SynchronousAssetLoader<TiledMap, TideMapLoade
 				for (int child = 0, childCount = currentRow.getChildCount(); child < childCount; child++) {
 					Element currentChild = currentRow.getChild(child);
 					String name = currentChild.getName();
-					if (name.equals("TileSheet")) {
-						currentTileSet = tilesets.getTileSet(currentChild.getAttribute("Ref"));
-						firstgid = currentTileSet.getProperties().get("firstgid", Integer.class);
-					} else if (name.equals("Null")) {
-						x += currentChild.getIntAttribute("Count");
-					} else if (name.equals("Static")) {
-						Cell cell = new Cell();
-						cell.setTile(currentTileSet.getTile(firstgid + currentChild.getIntAttribute("Index")));
-						layer.setCell(x++, y, cell);
-					} else if (name.equals("Animated")) {
-						// Create an AnimatedTile
-						int interval = currentChild.getInt("Interval");
-						Element frames = currentChild.getChildByName("Frames");
-						Array<StaticTiledMapTile> frameTiles = new Array<StaticTiledMapTile>();
-						for (int frameChild = 0, frameChildCount = frames.getChildCount(); frameChild < frameChildCount; frameChild++) {
-							Element frame = frames.getChild(frameChild);
-							String frameName = frame.getName();
-							if (frameName.equals("TileSheet")) {
-								currentTileSet = tilesets.getTileSet(frame.getAttribute("Ref"));
-								firstgid = currentTileSet.getProperties().get("firstgid", Integer.class);
-							} else if (frameName.equals("Static")) {
-								frameTiles.add((StaticTiledMapTile)currentTileSet.getTile(firstgid + frame.getIntAttribute("Index")));
-							}
-						}
-						Cell cell = new Cell();
-						cell.setTile(new AnimatedTiledMapTile(interval / 1000f, frameTiles));
-						layer.setCell(x++, y, cell); // TODO: Reuse existing animated tiles
-					}
+                                    switch (name) {
+                                        case "TileSheet":
+                                            currentTileSet = tilesets.getTileSet(currentChild.getAttribute("Ref"));
+                                            firstgid = currentTileSet.getProperties().get("firstgid", Integer.class);
+                                            break;
+                                        case "Null":
+                                            x += currentChild.getIntAttribute("Count");
+                                            break;
+                                        case "Static":
+                                            {
+                                                Cell cell = new Cell();
+                                                cell.setTile(currentTileSet.getTile(firstgid + currentChild.getIntAttribute("Index")));
+                                                layer.setCell(x++, y, cell);
+                                                break;
+                                            }
+                                        case "Animated":
+                                            {
+                                                // Create an AnimatedTile
+                                                int interval = currentChild.getInt("Interval");
+                                                Element frames = currentChild.getChildByName("Frames");
+                                                Array<StaticTiledMapTile> frameTiles = new Array<StaticTiledMapTile>();
+                                                for (int frameChild = 0, frameChildCount = frames.getChildCount(); frameChild < frameChildCount; frameChild++) {
+                                                    Element frame = frames.getChild(frameChild);
+                                                    String frameName = frame.getName();
+                                                    if (frameName.equals("TileSheet")) {
+                                                        currentTileSet = tilesets.getTileSet(frame.getAttribute("Ref"));
+                                                        firstgid = currentTileSet.getProperties().get("firstgid", Integer.class);
+                                                    } else if (frameName.equals("Static")) {
+                                                        frameTiles.add((StaticTiledMapTile)currentTileSet.getTile(firstgid + frame.getIntAttribute("Index")));
+                                                    }
+                                                }
+                                                Cell cell = new Cell();
+                                                cell.setTile(new AnimatedTiledMapTile(interval / 1000f, frameTiles));
+                                                layer.setCell(x++, y, cell); // TODO: Reuse existing animated tiles
+                                                break;
+                                            }
+                                        default:
+                                            break;
+                                    }
 				}
 			}
 			
@@ -278,15 +289,20 @@ public class TideMapLoader extends SynchronousAssetLoader<TiledMap, TideMapLoade
 				String type = property.getAttribute("Type", null);
 				String value = property.getText();
 
-				if (type.equals("Int32")) {
-					properties.put(key, Integer.parseInt(value));
-				} else if (type.equals("String")) {
-					properties.put(key, value);
-				} else if (type.equals("Boolean")) {
-					properties.put(key, value.equalsIgnoreCase("true"));
-				} else {
-					properties.put(key, value);
-				}
+                            switch (type) {
+                                case "Int32":
+                                    properties.put(key, Integer.parseInt(value));
+                                    break;
+                                case "String":
+                                    properties.put(key, value);
+                                    break;
+                                case "Boolean":
+                                    properties.put(key, value.equalsIgnoreCase("true"));
+                                    break;
+                                default:
+                                    properties.put(key, value);
+                                    break;
+                            }
 			}
 		}
 	}

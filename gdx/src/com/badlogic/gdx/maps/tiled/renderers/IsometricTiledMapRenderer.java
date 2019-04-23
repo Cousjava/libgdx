@@ -33,12 +33,12 @@ public class IsometricTiledMapRenderer extends BatchTiledMapRenderer {
 
 	private Matrix4 isoTransform;
 	private Matrix4 invIsotransform;
-	private Vector3 screenPos = new Vector3();
+	private final Vector3 screenPos = new Vector3();
 
-	private Vector2 topRight = new Vector2();
-	private Vector2 bottomLeft = new Vector2();
-	private Vector2 topLeft = new Vector2();
-	private Vector2 bottomRight = new Vector2();
+	private final Vector2 topRight = new Vector2();
+	private final Vector2 bottomLeft = new Vector2();
+	private final Vector2 topLeft = new Vector2();
+	private final Vector2 bottomRight = new Vector2();
 
 	public IsometricTiledMapRenderer (TiledMap map) {
 		super(map);
