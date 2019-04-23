@@ -67,7 +67,7 @@ public class Ray implements Serializable {
 		return this;
 	}
 
-	/** {@inheritDoc} */
+        @Override
 	public String toString () {
 		return "ray [" + origin + ":" + direction + "]";
 	}

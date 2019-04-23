@@ -147,6 +147,7 @@ public class Circle implements Serializable, Shape2D {
 	 * @param y Y coordinate
 	 * 
 	 * @return true if this circle contains the given point. */
+        @Override
 	public boolean contains (float x, float y) {
 		x = this.x - x;
 		y = this.y - y;
@@ -158,6 +159,7 @@ public class Circle implements Serializable, Shape2D {
 	 * @param point The {@link Vector2} that contains the point coordinates.
 	 * 
 	 * @return true if this circle contains this point; false otherwise. */
+        @Override
 	public boolean contains (Vector2 point) {
 		float dx = x - point.x;
 		float dy = y - point.y;

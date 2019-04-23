@@ -29,8 +29,8 @@ public class Rectangle implements Serializable, Shape2D {
 	static public final Rectangle tmp2 = new Rectangle();
 
 	private static final long serialVersionUID = 5733252015138115702L;
-	public float x, y;
-	public float width, height;
+	private float x, y;
+	private float width, height;
 
 	/** Constructs a new rectangle with all values set to zero */
 	public Rectangle () {
@@ -185,12 +185,14 @@ public class Rectangle implements Serializable, Shape2D {
 	/** @param x point x coordinate
 	 * @param y point y coordinate
 	 * @return whether the point is contained in the rectangle */
+        @Override
 	public boolean contains (float x, float y) {
 		return this.x <= x && this.x + this.width >= x && this.y <= y && this.y + this.height >= y;
 	}
 
 	/** @param point The coordinates vector
 	 * @return whether the point is contained in the rectangle */
+        @Override
 	public boolean contains (Vector2 point) {
 		return contains(point.x, point.y);
 	}
@@ -371,6 +373,7 @@ public class Rectangle implements Serializable, Shape2D {
 
 	/** Converts this {@code Rectangle} to a string in the format {@code [x,y,width,height]}.
 	 * @return a string representation of this object. */
+        @Override
 	public String toString () {
 		return "[" + x + "," + y + "," + width + "," + height + "]";
 	}
@@ -405,6 +408,7 @@ public class Rectangle implements Serializable, Shape2D {
 		return 2 * (this.width + this.height);
 	}
 
+        @Override
 	public int hashCode () {
 		final int prime = 31;
 		int result = 1;
@@ -415,6 +419,7 @@ public class Rectangle implements Serializable, Shape2D {
 		return result;
 	}
 
+        @Override
 	public boolean equals (Object obj) {
 		if (this == obj) return true;
 		if (obj == null) return false;

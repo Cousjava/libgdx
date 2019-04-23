@@ -18,7 +18,6 @@ package com.badlogic.gdx.math;
 
 import java.io.Serializable;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.NumberUtils;
 
 /** A convenient 2D ellipse class, based on the circle class
@@ -93,6 +92,7 @@ public class Ellipse implements Serializable, Shape2D {
 	 * @param y Y coordinate
 	 * 
 	 * @return true if this ellipse contains the given point; false otherwise. */
+        @Override
 	public boolean contains (float x, float y) {
 		x = x - this.x;
 		y = y - this.y;
@@ -105,6 +105,7 @@ public class Ellipse implements Serializable, Shape2D {
 	 * @param point Position vector
 	 * 
 	 * @return true if this ellipse contains the given point; false otherwise. */
+        @Override
 	public boolean contains (Vector2 point) {
 		return contains(point.x, point.y);
 	}

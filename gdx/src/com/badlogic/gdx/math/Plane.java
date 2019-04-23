@@ -176,6 +176,7 @@ public class Plane implements Serializable {
 		this.d = plane.d;
 	}
 
+        @Override
 	public String toString () {
 		return normal.toString() + ", " + d;
 	}
