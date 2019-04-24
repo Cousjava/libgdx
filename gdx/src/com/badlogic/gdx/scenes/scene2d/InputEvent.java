@@ -28,6 +28,7 @@ public class InputEvent extends Event {
 	private char character;
 	private Actor relatedActor;
 
+        @Override
 	public void reset () {
 		super.reset();
 		relatedActor = null;
@@ -132,6 +133,7 @@ public class InputEvent extends Event {
 		return stageX == Integer.MIN_VALUE || stageY == Integer.MIN_VALUE;
 	}
 
+        @Override
 	public String toString () {
 		return type.toString();
 	}

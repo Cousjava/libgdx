@@ -777,7 +777,6 @@ public class Actor {
 	 * @return true if the z-index changed. */
 	public boolean setZIndex (int index) {
 		if (index < 0) throw new IllegalArgumentException("ZIndex cannot be < 0.");
-		Group parent = this.parent;
 		if (parent == null) return false;
 		Array<Actor> children = parent.children;
 		if (children.size == 1) return false;
@@ -791,7 +790,6 @@ public class Actor {
 	/** Returns the z-index of this actor.
 	 * @see #setZIndex(int) */
 	public int getZIndex () {
-		Group parent = this.parent;
 		if (parent == null) return -1;
 		return parent.children.indexOf(this, true);
 	}
@@ -809,11 +807,10 @@ public class Actor {
 	public boolean clipBegin (float x, float y, float width, float height) {
 		if (width <= 0 || height <= 0) return false;
 		Rectangle tableBounds = Rectangle.tmp;
-		tableBounds.x = x;
-		tableBounds.y = y;
-		tableBounds.width = width;
-		tableBounds.height = height;
-		Stage stage = this.stage;
+		tableBounds.setX(x);
+		tableBounds.setY(y);
+		tableBounds.setWidth(width);
+		tableBounds.setHeight(height);
 		Rectangle scissorBounds = Pools.obtain(Rectangle.class);
 		stage.calculateScissors(tableBounds, scissorBounds);
 		if (ScissorStack.pushScissors(scissorBounds)) return true;
@@ -843,9 +840,6 @@ public class Actor {
 
 	/** Converts the coordinates given in the parent's coordinate system to this actor's coordinate system. */
 	public Vector2 parentToLocalCoordinates (Vector2 parentCoords) {
-		final float rotation = this.rotation;
-		final float scaleX = this.scaleX;
-		final float scaleY = this.scaleY;
 		final float childX = x;
 		final float childY = y;
 		if (rotation == 0) {
@@ -853,16 +847,12 @@ public class Actor {
 				parentCoords.x -= childX;
 				parentCoords.y -= childY;
 			} else {
-				final float originX = this.originX;
-				final float originY = this.originY;
 				parentCoords.x = (parentCoords.x - childX - originX) / scaleX + originX;
 				parentCoords.y = (parentCoords.y - childY - originY) / scaleY + originY;
 			}
 		} else {
 			final float cos = (float)Math.cos(rotation * MathUtils.degreesToRadians);
 			final float sin = (float)Math.sin(rotation * MathUtils.degreesToRadians);
-			final float originX = this.originX;
-			final float originY = this.originY;
 			final float tox = parentCoords.x - childX - originX;
 			final float toy = parentCoords.y - childY - originY;
 			parentCoords.x = (tox * cos + toy * sin) / scaleX + originX;
@@ -874,7 +864,6 @@ public class Actor {
 	/** Transforms the specified point in the actor's coordinates to be in screen coordinates.
 	 * @see Stage#stageToScreenCoordinates(Vector2) */
 	public Vector2 localToScreenCoordinates (Vector2 localCoords) {
-		Stage stage = this.stage;
 		if (stage == null) return localCoords;
 		return stage.stageToScreenCoordinates(localToAscendantCoordinates(null, localCoords));
 	}
@@ -886,9 +875,6 @@ public class Actor {
 
 	/** Transforms the specified point in the actor's coordinates to be in the parent's coordinates. */
 	public Vector2 localToParentCoordinates (Vector2 localCoords) {
-		final float rotation = -this.rotation;
-		final float scaleX = this.scaleX;
-		final float scaleY = this.scaleY;
 		final float x = this.x;
 		final float y = this.y;
 		if (rotation == 0) {
@@ -896,16 +882,12 @@ public class Actor {
 				localCoords.x += x;
 				localCoords.y += y;
 			} else {
-				final float originX = this.originX;
-				final float originY = this.originY;
 				localCoords.x = (localCoords.x - originX) * scaleX + originX + x;
 				localCoords.y = (localCoords.y - originY) * scaleY + originY + y;
 			}
 		} else {
 			final float cos = (float)Math.cos(rotation * MathUtils.degreesToRadians);
 			final float sin = (float)Math.sin(rotation * MathUtils.degreesToRadians);
-			final float originX = this.originX;
-			final float originY = this.originY;
 			final float tox = (localCoords.x - originX) * scaleX;
 			final float toy = (localCoords.y - originY) * scaleY;
 			localCoords.x = (tox * cos + toy * sin) + originX + x;
@@ -960,6 +942,7 @@ public class Actor {
 		return this;
 	}
 
+        @Override
 	public String toString () {
 		String name = this.name;
 		if (name == null) {

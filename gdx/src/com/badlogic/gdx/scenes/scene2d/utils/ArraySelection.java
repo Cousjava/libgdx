@@ -16,6 +16,7 @@ public class ArraySelection<T> extends Selection<T> {
 		this.array = array;
 	}
 
+        @Override
 	public void choose (T item) {
 		if (item == null) throw new IllegalArgumentException("item cannot be null.");
 		if (isDisabled) return;
@@ -54,6 +55,7 @@ public class ArraySelection<T> extends Selection<T> {
 	}
 
 	/** Called after the selection changes, clears the range start item. */
+        @Override
 	protected void changed () {
 		rangeStart = null;
 	}

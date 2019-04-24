@@ -32,6 +32,7 @@ public class DragListener extends InputListener {
 	private int button;
 	private boolean dragging;
 
+        @Override
 	public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 		if (pressedPointer != -1) return false;
 		if (pointer == 0 && this.button != -1 && button != this.button) return false;
@@ -43,6 +44,7 @@ public class DragListener extends InputListener {
 		return true;
 	}
 
+        @Override
 	public void touchDragged (InputEvent event, float x, float y, int pointer) {
 		if (pointer != pressedPointer) return;
 		if (!dragging && (Math.abs(touchDownX - x) > tapSquareSize || Math.abs(touchDownY - y) > tapSquareSize)) {
@@ -62,6 +64,7 @@ public class DragListener extends InputListener {
 		}
 	}
 
+        @Override
 	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 		if (pointer == pressedPointer) {
 			if (dragging) dragStop(event, x, y, pointer);

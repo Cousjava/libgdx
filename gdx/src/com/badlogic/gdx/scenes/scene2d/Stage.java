@@ -519,7 +519,6 @@ public class Stage extends InputAdapter implements Disposable {
 
 		// Cancel all current touch focuses except for the specified listener, allowing for concurrent modification, and never
 		// cancel the same focus twice.
-		SnapshotArray<TouchFocus> touchFocuses = this.touchFocuses;
 		TouchFocus[] items = touchFocuses.begin();
 		for (int i = 0, n = touchFocuses.size; i < n; i++) {
 			TouchFocus focus = items[i];
@@ -829,6 +828,7 @@ public class Stage extends InputAdapter implements Disposable {
 		setDebugTableUnderMouse(debugTableUnderMouse ? Debug.all : Debug.none);
 	}
 
+        @Override
 	public void dispose () {
 		clear();
 		if (ownsBatch) batch.dispose();
@@ -851,6 +851,7 @@ public class Stage extends InputAdapter implements Disposable {
 		Actor listenerActor, target;
 		int pointer, button;
 
+                @Override
 		public void reset () {
 			listenerActor = null;
 			listener = null;

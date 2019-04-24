@@ -33,7 +33,7 @@ import com.badlogic.gdx.utils.SnapshotArray;
  * @author mzechner
  * @author Nathan Sweet */
 public class Group extends Actor implements Cullable {
-	static private final Vector2 tmp = new Vector2();
+	private static final Vector2 tmp = new Vector2();
 
 	final SnapshotArray<Actor> children = new SnapshotArray(true, 4, Actor.class);
 	private final Affine2 worldTransform = new Affine2();
@@ -42,6 +42,7 @@ public class Group extends Actor implements Cullable {
 	boolean transform = true;
 	private Rectangle cullingArea;
 
+        @Override
 	public void act (float delta) {
 		super.act(delta);
 		Actor[] actors = children.begin();
@@ -52,6 +53,7 @@ public class Group extends Actor implements Cullable {
 
 	/** Draws the group and its children. The default implementation calls {@link #applyTransform(Batch, Matrix4)} if needed, then
 	 * {@link #drawChildren(Batch, float)}, then {@link #resetTransform(Batch)} if needed. */
+        @Override
 	public void draw (Batch batch, float parentAlpha) {
 		if (transform) applyTransform(batch, computeTransform());
 		drawChildren(batch, parentAlpha);
@@ -66,13 +68,12 @@ public class Group extends Actor implements Cullable {
 		parentAlpha *= this.color.a;
 		SnapshotArray<Actor> children = this.children;
 		Actor[] actors = children.begin();
-		Rectangle cullingArea = this.cullingArea;
 		if (cullingArea != null) {
 			// Draw children only if inside culling area.
-			float cullLeft = cullingArea.x;
-			float cullRight = cullLeft + cullingArea.width;
-			float cullBottom = cullingArea.y;
-			float cullTop = cullBottom + cullingArea.height;
+			float cullLeft = cullingArea.getX();
+			float cullRight = cullLeft + cullingArea.getWidth();
+			float cullBottom = cullingArea.getY();
+			float cullTop = cullBottom + cullingArea.getHeight();
 			if (transform) {
 				for (int i = 0, n = children.size; i < n; i++) {
 					Actor child = actors[i];
@@ -133,6 +134,7 @@ public class Group extends Actor implements Cullable {
 
 	/** Draws this actor's debug lines if {@link #getDebug()} is true and, regardless of {@link #getDebug()}, calls
 	 * {@link Actor#drawDebug(ShapeRenderer)} on each child. */
+        @Override
 	public void drawDebug (ShapeRenderer shapes) {
 		drawDebugBounds(shapes);
 		if (transform) applyTransform(shapes, computeTransform());
@@ -145,7 +147,6 @@ public class Group extends Actor implements Cullable {
 	 * these methods don't need to be called, children positions are temporarily offset by the group position when drawn. This
 	 * method avoids drawing children completely outside the {@link #setCullingArea(Rectangle) culling area}, if set. */
 	protected void drawDebugChildren (ShapeRenderer shapes) {
-		SnapshotArray<Actor> children = this.children;
 		Actor[] actors = children.begin();
 		// No culling, draw all children.
 		if (transform) {
@@ -180,8 +181,6 @@ public class Group extends Actor implements Cullable {
 
 	/** Returns the transform for this group's coordinate system. */
 	protected Matrix4 computeTransform () {
-		Affine2 worldTransform = this.worldTransform;
-		float originX = this.originX, originY = this.originY;
 		worldTransform.setToTrnRotScl(x + originX, y + originY, rotation, scaleX, scaleY);
 		if (originX != 0 || originY != 0) worldTransform.translate(-originX, -originY);
 
@@ -238,6 +237,7 @@ public class Group extends Actor implements Cullable {
 		return cullingArea;
 	}
 
+        @Override
 	public Actor hit (float x, float y, boolean touchable) {
 		if (touchable && getTouchable() == Touchable.disabled) return null;
 		if (!isVisible()) return null;
@@ -361,7 +361,6 @@ public class Group extends Actor implements Cullable {
 	/** Returns the first actor found with the specified name. Note this recursively compares the name of every actor in the
 	 * group. */
 	public <T extends Actor> T findActor (String name) {
-		Array<Actor> children = this.children;
 		for (int i = 0, n = children.size; i < n; i++)
 			if (name.equals(children.get(i).getName())) return (T)children.get(i);
 		for (int i = 0, n = children.size; i < n; i++) {
@@ -374,6 +373,7 @@ public class Group extends Actor implements Cullable {
 		return null;
 	}
 
+        @Override
 	protected void setStage (Stage stage) {
 		super.setStage(stage);
 		Actor[] childrenArray = children.items;
@@ -454,6 +454,7 @@ public class Group extends Actor implements Cullable {
 	}
 
 	/** Returns a description of the actor hierarchy, recursively. */
+        @Override
 	public String toString () {
 		StringBuilder buffer = new StringBuilder(128);
 		toString(buffer, 1);

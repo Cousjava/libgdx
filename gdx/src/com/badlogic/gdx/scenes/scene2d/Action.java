@@ -85,6 +85,7 @@ abstract public class Action implements Poolable {
 	 * The default implementation calls {@link #restart()}.
 	 * <p>
 	 * If a subclass has optional state, it must override this method, call super, and reset the optional state. */
+        @Override
 	public void reset () {
 		actor = null;
 		target = null;
@@ -103,6 +104,7 @@ abstract public class Action implements Poolable {
 		this.pool = pool;
 	}
 
+        @Override
 	public String toString () {
 		String name = getClass().getName();
 		int dotIndex = name.lastIndexOf('.');

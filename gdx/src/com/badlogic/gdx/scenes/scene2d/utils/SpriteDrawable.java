@@ -41,6 +41,7 @@ public class SpriteDrawable extends BaseDrawable implements TransformDrawable {
 		setSprite(drawable.sprite);
 	}
 
+        @Override
 	public void draw (Batch batch, float x, float y, float width, float height) {
 		Color spriteColor = sprite.getColor();
 		temp.set(spriteColor);
@@ -54,6 +55,7 @@ public class SpriteDrawable extends BaseDrawable implements TransformDrawable {
 		sprite.setColor(temp);
 	}
 
+        @Override
 	public void draw (Batch batch, float x, float y, float originX, float originY, float width, float height, float scaleX,
 		float scaleY, float rotation) {
 
